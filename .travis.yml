@@ -1,2 +1,8 @@
 language: node_js
 node_js: node
+deploy:
+  provider: heroku
+  api_key:
+    secure: Z+k3eR/0Nnyx4EM2b2vX/tyfx1V5ML/pJ8FSbr64oMjUbQ5lKPA/qGIYnumHkqb3cf5/WPXdvkNQC5O2fAlAjR/zc/TlYYzUSnSc9G5zH298l3eHyrVQrt44a5xxE0oLwSLKLpZxBdjD+WjR9ihrx1lIl9fYC5yAswLOXjvcz3f1GsoeHZz9PpH6eUqE0a2ie3xUYaiA69uemDUVNhKHUpv8DCYNQ416HxAjwYv3MZQS6tWcb3eURuk6O3UOy+SArB6NuhLdKw5nEYVqqQ4W4O//5NI8YTFY9nRtD83fpSlHD8c0VlYVvx4VTWsz8l16Qlq9lPnovugpZtJewdADp54gV65BzZ5gZd9KUt9KJhdcY2DiGEQ41KQ3DdtMTS/WDlpZxpIcjliT6VGKe99Jfjc8T7a9+adwxG1iLx59dbSBE2802i4hs6K8DV5Tz+ecml8BnHbOxr++TXPLM75uLquAhuoIEdI5/Ax5QjFkzrphd0/9+DJv3ubHnqPMQzcq2j470MfJqtXf6J15AaOx1+rrQL/LAtsp/6/Y24daMHLY2pSOCb/9PXRtrg0v7COepVI6qPzMpsIC4VQhzbK1APmDxphA//qr/7QVL0McHGuHPpL/PEN47IQFL4TdJmqbkdY8ZVH3bhZLRwWyuKB9iT2EAbw2eL+KMDii9Xtj91M=
+  app: safe-inlet-21313
+
