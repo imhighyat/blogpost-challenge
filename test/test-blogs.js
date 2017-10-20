@@ -99,4 +99,45 @@ describe('blogposts GET endpoint', function () {
 			});
 		});
 	});
+	//test for PUT endpoint
+	//1. create a var that will hold the updated info
+	//2. do a GET request to obtain an id from the entries
+	//3. add the id to the var we created
+	//4. do a put request and send in the updated info
+	//5. test the response
+	//		res should return a status of 204
+	//6. do a GET request to make sure that the changes was updated to the blogpost
+	//		test the id of each blogpost entry and compare it to the id of the new item. var info should match one of the entries
+	it('should update a specific entry via PUT', function(){
+		const updateData = {
+			title: 'updated title',
+			content: 'updated content',
+			author: 'updated author',
+			publishDate: 'March 23, 2015'
+		};
+		return chai.request(app)
+		.get('/blog-posts')
+		.then(function(res){
+			updateData.id = res.body[0].id;
+			return chai.request(app)
+				.put(`/blog-posts/${updateData.id}`)
+				.send(updateData);
+		})
+		.then(function(res){
+			res.should.have.status(204);
+		})
+		.then(function(res){
+			let match = false;
+			return chai.request(app)
+			.get('/blog-posts')
+			.then(function(res){
+				res.body.forEach(function(item){
+					if(item.id === updateData.id && item.title === updateData.title && item.content === updateData.content && item.author === updateData.author && item.publishDate === updateData.publishDate){
+						match = true;
+					}
+				});
+				match.should.be.true;
+			});
+		});
+	});
 });
