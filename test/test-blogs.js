@@ -26,7 +26,7 @@ describe('blogposts GET endpoint', function () {
 	//		each item of the res.body should have the required keys
 	//		each item of the res.body should be an object
 	//		keys should have values with length of at least 1
-	it('should get all the blogposts', function () {
+	it('should get all the blogposts via GET', function () {
 		return chai.request(app)
 		.get('/blog-posts')
 		.then(function (res){
@@ -59,7 +59,7 @@ describe('blogposts GET endpoint', function () {
 	//		if required keys are missing, respond with status 400 and send the error message
 	//4. do a GET request to make sure that the newly posted item was added
 	//		test the id of each blogpost entry and compare it to the id of the new item. one should match and return true
-	it('should add a new entry on POST', function() {
+	it('should add a new entry via POST', function() {
 		const newItem = {
 			title: 'new blog post',
 			content: 'new content',
@@ -137,6 +137,39 @@ describe('blogposts GET endpoint', function () {
 					}
 				});
 				match.should.be.true;
+			});
+		});
+	});
+	//test for DELETE endpoint
+	//2. do a GET request to obtain an id from the entries, add it to a var to use later
+	//3. do a DELETE request passing in the id in the param
+	//4. test the response
+	//		res should return a status of 204
+	//5. do a GET request to make sure that the entry with the id has been deleted
+	//		test the id of each blogpost entry and compare it to the id that we stored in a var. var info should not match any of the entries
+	it('should delete a specific entry via DELETE', function(){
+		let deleteId;
+		return chai.request(app)
+		.get('/blog-posts')
+		.then(function(res){
+			deleteId = res.body[0].id;
+			return chai.request(app)
+			.delete(`/blog-posts/${deleteId}`);
+		})
+		.then(function(res){
+			res.should.have.status(204);
+		})
+		.then(function(res){
+			let match = false;
+			return chai.request(app)
+			.get('/blog-posts')
+			.then(function(res){
+				res.body.forEach(function(item){
+					if(item.id === deleteId){
+						let match = true;
+					}
+				});
+				match.should.be.false;
 			});
 		});
 	});
