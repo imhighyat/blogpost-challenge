@@ -30,6 +30,7 @@ describe('blogposts GET endpoint', function () {
 		return chai.request(app)
 		.get('/blog-posts')
 		.then(function (res){
+			return true;
 			res.should.have.status(200);
 			res.should.be.json;
 			res.body.should.be.an('array');
@@ -40,10 +41,10 @@ describe('blogposts GET endpoint', function () {
 				item.should.include.keys(expectedKeys);
 				Object.keys(item).forEach(function(key){
 					item[key].length.should.be.above(0);
-				});
-			});
-		});
-	});
+				})
+			})
+		})
+	})
 	//test for POST endpoint
 	//1. create a var to store the new info 
 	//2. do a POST request, and send in the new item
@@ -86,7 +87,7 @@ describe('blogposts GET endpoint', function () {
 			//	res.should.have.status(400);
 			//}
 		})
-		.then(function(res){
+		.then(function(){
 			let match = false;
 			return chai.request(app)
 			.get('/blog-posts')
@@ -126,7 +127,7 @@ describe('blogposts GET endpoint', function () {
 		.then(function(res){
 			res.should.have.status(204);
 		})
-		.then(function(res){
+		.then(function(){
 			let match = false;
 			return chai.request(app)
 			.get('/blog-posts')
@@ -159,7 +160,7 @@ describe('blogposts GET endpoint', function () {
 		.then(function(res){
 			res.should.have.status(204);
 		})
-		.then(function(res){
+		.then(function(){
 			let match = false;
 			return chai.request(app)
 			.get('/blog-posts')

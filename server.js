@@ -19,15 +19,27 @@ app.use('/blog-posts', blogsRouter);
 //for testing
 function runServer() {
 	//will store the listening port in the `server` variable
-	server = app.listen(process.env.PORT || 8080, () => {
+	return new Promise((resolve, reject) => {
+		server = app.listen(process.env.PORT || 8080, () => {
  		console.log(`Blogpost app is listening on port ${process.env.PORT || 8080}`);
+		resolve(server);
+		})
+		.on('error', err => {
+			reject(err);
+		});
 	});
 }
 
 //function that will close the server
 //for testing
 function closeServer() {
-	server.close();
+	return new Promise((resolve, reject) => {
+		server.close(err => {
+			if(err) return reject(err);
+			resolve();
+		});
+	});
+	
 }
 
 //this makes sure that when this module is called, 
